@@ -1,0 +1,1 @@
+The realisation of methods "concatination of Strings" and of the method to test the time required to perform each method.   

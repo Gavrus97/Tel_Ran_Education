@@ -13,6 +13,12 @@ class MainTest {
     }
 
     @Test
+    public void test_prefix2() {
+        int[] numbers = {2, 2, 3, 4, 1, 0, 5, 0, 1, 0, 5};
+        assertEquals(0, main.prefix(numbers, 2, 3));
+    }
+
+    @Test
     public void test_prefix11() {
         int[] numbers = {1, 2, 3, 4, 1, 2, 5, 3, 1, 2, 5};
         assertEquals(11, main.prefix(numbers, 1, 2));

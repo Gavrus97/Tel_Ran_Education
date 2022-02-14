@@ -2,9 +2,6 @@ public class Main {
 
     public static void main(String[] args) {
 
-        int[] numbers = {1, 2, 3, 4, 1, 2, 5, 3, 1, 2, 5};
-        System.out.println(prefix(numbers, 2, 3));
-
     }
     //Есть массив целых чисел. Петя и Вася задумывают по своему любимому числу.
     //Найти наибольшую длину префикса этого массива, такого, что он (префикс массива)
@@ -12,7 +9,7 @@ public class Main {
     // (7, 42, {6, 42, 11, 7, 1, 42})) -> 5
     // (7, 42, new int[]{7, 42, 11, 7, 1, 42})) -> 6
 
-    public static int prefix(int[] numbers, int vasjaNumber, int petjaNumber) {
+    public int prefix(int[] numbers, int vasjaNumber, int petjaNumber) {
         int res = 0;
         int countVasja = 0;
         int countPetja = 0;

@@ -9,7 +9,6 @@ public class FileOperations {
 
     /**
      * Writes the Strings into the file, one string as one line
-     *
      * @param strings  list of strings
      * @param fileName the name of file
      */

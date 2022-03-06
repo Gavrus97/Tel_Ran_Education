@@ -23,13 +23,15 @@ public class Employee extends Thread{
 
     @Override
     public void run() {
-        for (int i = 0; i < creditsNumber; i++) {
-            issueCredit(minCreditTime,maxCreditTime);
-        }
+        synchronized (this) {
+            for (int i = 0; i < creditsNumber; i++) {
+                issueCredit(minCreditTime, maxCreditTime);
+            }
 
-        long finalTime = System.currentTimeMillis() - startTime;
-        Score sc = new Score(name, finalTime);
-        scores.add(sc);
+            long finalTime = System.currentTimeMillis() - startTime;
+            Score sc = new Score(name, finalTime);
+            scores.add(sc);
+        }
     }
 
     protected void issueCredit(int minTime, int maxTime){

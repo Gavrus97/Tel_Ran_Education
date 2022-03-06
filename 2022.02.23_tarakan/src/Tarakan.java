@@ -24,17 +24,19 @@ public class Tarakan extends Thread{
 
     @Override
     public void run() {
-        for (int i = 0; i < distance; i++) {
-            int stepTime = rnd.nextInt(maxStepTime - minStepTime + 1) + minStepTime;
-            try {
-                Thread.sleep(stepTime);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+        synchronized(this) {
+            for (int i = 0; i < distance; i++) {
+                int stepTime = rnd.nextInt(maxStepTime - minStepTime + 1) + minStepTime;
+                try {
+                    Thread.sleep(stepTime);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
-        }
 
-        long distanceTime = System.currentTimeMillis() - startTime;
-        Score score = new Score(name, distanceTime);
-        scores.add(score);
+            long distanceTime = System.currentTimeMillis() - startTime;
+            Score score = new Score(name, distanceTime);
+            scores.add(score);
+        }
     }
 }

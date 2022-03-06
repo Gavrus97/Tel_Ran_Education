@@ -24,16 +24,21 @@ public class Employee extends Thread{
     @Override
     public void run() {
         for (int i = 0; i < creditsNumber; i++) {
-            int stepTime = rnd.nextInt(maxCreditTime - minCreditTime + 1) + minCreditTime;
-            try {
-                Thread.sleep(stepTime);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+            issueCredit(minCreditTime,maxCreditTime);
         }
 
         long finalTime = System.currentTimeMillis() - startTime;
         Score sc = new Score(name, finalTime);
         scores.add(sc);
+    }
+
+    protected void issueCredit(int minTime, int maxTime){
+        int stepTime = rnd.nextInt(maxTime - minTime + 1) + minTime;
+
+        try {
+            Thread.sleep(stepTime);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }

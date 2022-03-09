@@ -28,37 +28,36 @@ public class RandomInspiredEmployee extends Thread {
 
     @Override
     public void run() {
-        synchronized (this) {
-            for (int i = 0; i < creditsNumber; i++) {
+        for (int i = 0; i < creditsNumber; i++) {
 
-                int inspiration = rnd.nextInt(5) + 1;
+            int inspiration = rnd.nextInt(5) + 1;
 
-                if (inspiration == 1) {
-                    int inspiredStepTime = rnd.nextInt(inspiredMaxTime - inspiredMinTime + 1) + inspiredMinTime;
-                    int count = 1;
-                    while (count <= 3) {
-                        try {
-                            Thread.sleep(inspiredStepTime);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                        count++;
-                        i++;
-                    }
-                } else {
-                    int stepTime = rnd.nextInt(normalMaxTime - normalMinTime + 1) + normalMinTime;
+            if (inspiration == 1) {
+                int inspiredStepTime = rnd.nextInt(inspiredMaxTime - inspiredMinTime + 1) + inspiredMinTime;
+                int count = 1;
+                while (count <= 3) {
                     try {
-                        Thread.sleep(stepTime);
+                        Thread.sleep(inspiredStepTime);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
+                    count++;
+                    i++;
+                }
+            } else {
+                int stepTime = rnd.nextInt(normalMaxTime - normalMinTime + 1) + normalMinTime;
+                try {
+                    Thread.sleep(stepTime);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
             }
+        }
 
-
-                long finalTime = System.currentTimeMillis() - startTime;
-                Score sc = new Score(name, finalTime);
-                scores.add(sc);
+        long finalTime = System.currentTimeMillis() - startTime;
+        Score sc = new Score(name, finalTime);
+        synchronized (scores) {
+            scores.add(sc);
         }
     }
 }

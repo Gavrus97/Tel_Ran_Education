@@ -1,7 +1,7 @@
 import java.util.List;
 import java.util.Random;
 
-public class Tarakan extends Thread{
+public class Tarakan extends Thread {
 
     final int minStepTime;
     final int maxStepTime;
@@ -24,18 +24,18 @@ public class Tarakan extends Thread{
 
     @Override
     public void run() {
-        synchronized(this) {
-            for (int i = 0; i < distance; i++) {
-                int stepTime = rnd.nextInt(maxStepTime - minStepTime + 1) + minStepTime;
-                try {
-                    Thread.sleep(stepTime);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+        for (int i = 0; i < distance; i++) {
+            int stepTime = rnd.nextInt(maxStepTime - minStepTime + 1) + minStepTime;
+            try {
+                Thread.sleep(stepTime);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
+        }
 
-            long distanceTime = System.currentTimeMillis() - startTime;
-            Score score = new Score(name, distanceTime);
+        long distanceTime = System.currentTimeMillis() - startTime;
+        Score score = new Score(name, distanceTime);
+        synchronized (scores) {
             scores.add(score);
         }
     }

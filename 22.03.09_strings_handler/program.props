@@ -1,1 +1,1 @@
-paths=operations.UpperCaseOperation, operations.LowerCaseOperation
+paths=operations.UpperCaseOperation,operations.LowerCaseOperation

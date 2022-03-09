@@ -20,7 +20,6 @@ public class TextConsumer implements Runnable {
     public void run() {
         try {
             while (true) {
-
                 String line = queue.take();
                 String newLine = handleLine(line);
                 pw.println(newLine);
@@ -28,17 +27,27 @@ public class TextConsumer implements Runnable {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
     }
 
     private String handleLine(String line) {
-        // TODO implement
+
+        String[] splitArray = line.split("#");
         String operationName;
         String text;
-        // TODO fill the variables operationName and text. Check whether the format of the line is correct
+
+        if (splitArray.length != 2)
+            return line.concat("#wrong operation");
+        else {
+            operationName = splitArray[0];
+            text = splitArray[1];
+        }
 
         IStringOperation operation = operationContext.getOperation(operationName);
-        // Check whether operation exists
-        String res = operation.operate(text);
+
+        if(operation == null)
+            return operationName.concat("#operation not supported");
+        else {
+            return operation.operate(text);
+        }
     }
 }

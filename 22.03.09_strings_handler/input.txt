@@ -1,5 +1,5 @@
 to_upper_case#hello world
-to_lower_case#Vasya
+to_lower_case#VASyA
 reverse#something
 some text
 to_upper_case#hello world#buy

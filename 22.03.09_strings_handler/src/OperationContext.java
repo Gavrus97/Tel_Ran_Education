@@ -1,16 +1,16 @@
 import operations.IStringOperation;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.TreeMap;
 
 /**
  * loads and provides all operations by their names
  */
 public class OperationContext {
 
-    Map<String, IStringOperation> operationsSource = new TreeMap<>();
+    Map<String, IStringOperation> operationsSource = new HashMap<>();
 
     /**
      * The method creates instances for all the operation by their name and places them into operationsSource

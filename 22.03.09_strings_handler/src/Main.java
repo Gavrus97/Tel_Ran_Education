@@ -9,9 +9,9 @@ import java.util.concurrent.LinkedBlockingQueue;
 
 public class Main {
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, InterruptedException {
 
-            //create a print writer which is shared among all the consumers
+        //create a print writer which is shared among all the consumers
         try (PrintWriter pw = new PrintWriter("output2.txt")) {
 
             //load operations
@@ -31,9 +31,17 @@ public class Main {
             TextConsumer consumer2 = new TextConsumer(queue, operationContext, pw);
             TextConsumer consumer3 = new TextConsumer(queue, operationContext, pw);
 
-            new Thread(consumer1).start();
-            new Thread(consumer2).start();
-            new Thread(consumer3).start();
+            consumer1.setNextConsumerThread(consumer2);
+            consumer2.setNextConsumerThread(consumer3);
+            consumer3.setNextConsumerThread(consumer1);
+
+            consumer1.start();
+            consumer2.start();
+            consumer3.start();
+
+            consumer1.join();
+            consumer2.join();
+            consumer3.join();
         }
     }
 

@@ -53,7 +53,7 @@ public class Main {
 
         //5.
         List<Predicate<Integer>> predicates = Arrays.asList(x -> x % 2 == 0, y -> y % 4 == 0);
-        PredicateService<Integer> predicateService = new PredicateService<>();
+        PredicateService predicateService = new PredicateService();
         Predicate<Integer> result1 = predicateService.intersect(predicates);
         System.out.println("Predicate Service - intersect");
         System.out.println(result1.test(2)); // false

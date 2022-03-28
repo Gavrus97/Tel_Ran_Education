@@ -1,9 +1,16 @@
 import java.util.List;
 import java.util.function.Predicate;
 
-public class PredicateService<T> {
+public class PredicateService {
 
-    public Predicate<T> intersect(List<Predicate<T>> list) {
+    /**
+     * @param list a list of predicates
+     * @return the intersection of the predicates
+     * @throws IllegalArgumentException if no items in the list
+     */
+    public <T> Predicate<T> intersect(List<Predicate<T>> list) {
+        if(list.size() == 0) throw new IllegalArgumentException();
+
         Predicate<T> startPredicate = list.get(0);
         int count = 1;
         while (count < list.size()) {
@@ -13,7 +20,14 @@ public class PredicateService<T> {
         return startPredicate;
     }
 
-    public Predicate<T> union(List<Predicate<T>> list) {
+    /**
+     * @param list a list of predicates
+     * @return the union of the predicates
+     * @throws IllegalArgumentException if no items in the list
+     */
+    public <T> Predicate<T> union(List<Predicate<T>> list) {
+        if(list.size() == 0) throw new IllegalArgumentException();
+
         Predicate<T> startPredicate = list.get(0);
         int count = 1;
         while (count < list.size()) {

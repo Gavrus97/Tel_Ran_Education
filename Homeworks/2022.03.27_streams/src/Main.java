@@ -14,8 +14,7 @@ public class Main {
         makeStream(s1, s2).forEach(System.out::println);
 
         //3
-        IntStream stream = IntStream.of(1, 2, 3, 4, 5);
-        System.out.println(findFactorial(stream));
+        System.out.println(findFactorial(6));
 
         //4
         IntStream stream1 = IntStream.of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12);
@@ -124,8 +123,8 @@ public class Main {
     }
 
     //3
-    public static int findFactorial(IntStream s) {
-        return s.reduce(1, (result, x) -> result * x);
+    public static int findFactorial(int s) {
+        return IntStream.rangeClosed(1,s).reduce(1, (result, x) -> result * x);
     }
 
     //4

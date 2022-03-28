@@ -1,6 +1,7 @@
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.IntStream;
+import java.util.stream.LongStream;
 
 public class Main {
 
@@ -18,7 +19,7 @@ public class Main {
 
         //4
         IntStream stream1 = IntStream.of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12);
-        System.out.println(sum(stream1, 1, 5));
+        System.out.println(sum(29, 1, 5));
 
         //5
         List<Transaction> transactions1 = Arrays.asList(
@@ -83,7 +84,7 @@ public class Main {
                 new Department("Sparkasse", "110-182", employees2),
                 new Department("DeutscheBank", "111-001", employees3)
         );
-        System.out.println(countEmployees(departments, 2300));
+        System.out.println(countEmployees(departments, 2300, "111-"));
 
         //7
         Account_Exercise7 account1 = new Account_Exercise7("1", 90000, false);
@@ -110,26 +111,27 @@ public class Main {
         if (number < 2)
             return false;
 
-        return IntStream.range(2, number).filter(x -> number % x == 0).count() == 0;
+        return IntStream.range(2, (int)Math.sqrt(number)).noneMatch(x -> number % x == 0);
     }
 
     //2
     public static IntStream makeStream(IntStream stream1, IntStream stream2) {
         return IntStream.concat(stream1, stream2)
-                .distinct()
                 .filter(x -> x % 3 == 0 && x % 5 == 0)
                 .sorted()
                 .skip(2);
     }
 
     //3
-    public static int findFactorial(int s) {
-        return IntStream.rangeClosed(1,s).reduce(1, (result, x) -> result * x);
+    public static long findFactorial(int s) {
+        return LongStream.rangeClosed(1,s).reduce(1, (result, x) -> result * x);
     }
 
     //4
-    public static int sum(IntStream s, int left, int right) {
-        return s.filter(x -> x % 2 != 0).limit(right).skip(left).reduce(0, Integer::sum);
+    public static int sum(int s, int left, int right) {
+        return IntStream.rangeClosed(left, right)
+                .filter(x -> x % 2 != 0)
+                .reduce(0, Integer::sum);
     }
 
     //5
@@ -142,10 +144,11 @@ public class Main {
     }
 
     //6
-    public static int countEmployees(List<Department> departments, long threshold){
-        return (int) departments.stream().filter(x -> x.code.startsWith("111-"))
+    public static int countEmployees(List<Department> departments, long threshold, String departmentsPrefix){
+        return (int) departments.stream()
+                .filter(x -> x.code.startsWith(departmentsPrefix))
                 .flatMap(x -> x.employees.stream()
-                        .filter(y -> y.salary >= threshold))
+                    .filter(y -> y.salary >= threshold))
                 .count();
     }
 

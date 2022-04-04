@@ -59,9 +59,9 @@ public class Main {
     }
 
     //5 b
-    public Map<String, Long> countUniqueVisits(List<LogEntry> logs){
+    public Map<String, Integer> countUniqueVisits(List<LogEntry> logs) {
         return logs.stream()
-                .collect(collectingAndThen(groupingBy(LogEntry::getUrl, toSet()), ));
+                .collect(groupingBy(LogEntry::getUrl, mapping(LogEntry::getLogin, collectingAndThen(toSet(), Set::size))));
     }
 
     //5 c

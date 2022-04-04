@@ -118,4 +118,28 @@ class MainTest {
         res.put("Lenovo PC", lenovo);
         assertEquals(res, main.getSetOfVisitsByLogin(logs));
     }
+
+    @Test
+    public void test_countUniqueVisits(){
+        List<LogEntry> logs = Arrays.asList(
+                new LogEntry("MacBook Pro 13", "www.tel-ran.de"),
+                new LogEntry("MacBook Pro 15", "www.tel-ran.de"),
+                new LogEntry("Lenovo PC", "www.tel-ran.de"),
+                new LogEntry("Lenovo PC", "www.bahn.de"),
+                new LogEntry("MacBook Pro 13", "www.sparkasse.de"),
+                new LogEntry("MacBook Air 13", "www.bahn.de"),
+                new LogEntry("MacBook Air 13", "www.tel-ran.de"),
+                new LogEntry("MacBook Pro 13", "www.tel-ran.de"),
+                new LogEntry("MacBook Pro 13", "www.bahn.de"),
+                new LogEntry("MacBook Pro 15", "www.sparkasse.de"),
+                new LogEntry("MacBook Pro 13", "www.tel-ran.de")
+        );
+
+        Map<String, Integer> res = new HashMap<>();
+        res.put("www.tel-ran.de", 4);
+        res.put("www.bahn.de", 3);
+        res.put("www.sparkasse.de", 2);
+        assertEquals(res, main.countUniqueVisits(logs));
+
+    }
 }

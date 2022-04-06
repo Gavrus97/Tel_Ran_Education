@@ -7,6 +7,7 @@ import java.util.function.BinaryOperator;
 import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 public class NormalisedNumbersCollector implements Collector<Double, List<Double>, List<Double>> {
 
@@ -22,7 +23,7 @@ public class NormalisedNumbersCollector implements Collector<Double, List<Double
 
     @Override
     public BinaryOperator<List<Double>> combiner() {
-        return (list1, list2) ->{
+        return (list1, list2) -> {
             list1.addAll(list2);
             return list1;
         };
@@ -31,21 +32,19 @@ public class NormalisedNumbersCollector implements Collector<Double, List<Double
     @Override
     public Function<List<Double>, List<Double>> finisher() {
         return list -> {
-            Collections.sort(list);
             List<Double> res = new ArrayList<>();
-            double min = list.get(0);
-            double max = list.get(list.size() - 1);
+            double min = Collections.min(list);
+            double max = Collections.max(list);
+            double splitter = max - min;
 
-            for (double temp : list) {
-                temp = (temp - min) / (max - min);
-                res.add(temp);
-            }
-            return res;
+            return list.stream()
+                    .map(x -> (x - min) / splitter)
+                    .collect(Collectors.toList());
         };
     }
 
     @Override
     public Set<Characteristics> characteristics() {
-        return Collections.unmodifiableSet(Set.of(Collector.Characteristics.CONCURRENT));
+        return Collections.emptySet();
     }
 }

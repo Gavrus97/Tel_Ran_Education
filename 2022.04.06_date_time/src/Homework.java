@@ -4,19 +4,19 @@ import java.time.temporal.ChronoUnit;
 public class Homework {
     public static void main(String[] args) {
         LocalDate date = LocalDate.parse("1997-11-08");
-        System.out.println(findDayOfBirth(date));
+        System.out.println(findDayOfWeekOfBirthday(date));
         LocalDate today = LocalDate.of(2022, 11, 3);
         System.out.println(howManyDaysBeforeNewYear(today));
-        System.out.println(getDaysBeforeBirthday(today, 11,7));
+        System.out.println(getDaysBeforeBirthday(today, 11,7)); 
     }
     // Узнать день недели, в котором вы родились
-    public static String findDayOfBirth(LocalDate date){
+    public static String findDayOfWeekOfBirthday(LocalDate date){
         return date.getDayOfWeek().toString();
     }
 
     // Узнать количество дней до нового года, при условии, что нельзя явно указывать год.
     public static int howManyDaysBeforeNewYear(LocalDate date){
-        int year = LocalDate.now().getYear();
+        int year = date.getYear();
         LocalDate nextNewYear = LocalDate.of(year, 12,31);
         return (int)ChronoUnit.DAYS.between(date, nextNewYear);
     }

@@ -1,57 +1,40 @@
 package de.telran.shapes_spring.shapes;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class Picture extends Shape{
 
     private final List<Shape> shapes;
     private final int frameSize;
-    private final List<String> frame = Arrays.asList("This", "is", "a", "frame");
 
 
-    public Picture(List<Shape> shapes) {
-        this.shapes = shapes;
+    public Picture(List<Shape> shapes, char symbol) {
+        super(symbol);
+        this.shapes = new ArrayList<>(shapes);
         this.frameSize = getCountOfChars();
     }
 
     @Override
     public void draw() {
-//        for (int i = 0; i < frameSize; i++) {
-//            System.out.print("FrAmE");
-//        }
-//        System.out.println();
-
-        for (String s : frame){
-            System.out.print(s + " ");
-        }
-        System.out.println();
-
+        drawBorder();
         for (Shape shape : shapes){
             shape.draw();
         }
-//        for (int i = 0; i < frameSize; i++) {
-//            System.out.print("FrAmE");
-//        }
-
-        for (String s : frame){
-            System.out.print(s + " ");
-        }
-        System.out.println();
+        drawBorder();
     }
 
-    @Override
-    public char getSymbol() {
-        return 0;
-    }
+
 
     @Override
     public int getCountOfChars() {
         return shapes
                 .stream()
-                .max((x,y) -> Integer.compare(x.getCountOfChars(), y.getCountOfChars()))
-                .get()
-                .getCountOfChars();
+                .mapToInt(Shape::getCountOfChars)
+                .max()
+                .orElse(0);
     }
 
 
@@ -61,5 +44,12 @@ public class Picture extends Shape{
 
     public int getFrameSize() {
         return frameSize;
+    }
+
+    private void drawBorder(){
+        for (int i = 0; i < frameSize; i++) {
+            System.out.print(symbol);
+        }
+        System.out.println();
     }
 }
